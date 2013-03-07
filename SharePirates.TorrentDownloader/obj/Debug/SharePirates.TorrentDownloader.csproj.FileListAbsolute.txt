@@ -1,0 +1,6 @@
+C:\Dev\ASPC2013\SharePirates.TorrentDownloader\bin\Debug\SharePirates.TorrentDownloader.exe.config
+C:\Dev\ASPC2013\SharePirates.TorrentDownloader\bin\Debug\SharePirates.TorrentDownloader.exe
+C:\Dev\ASPC2013\SharePirates.TorrentDownloader\bin\Debug\SharePirates.TorrentDownloader.pdb
+C:\Dev\ASPC2013\SharePirates.TorrentDownloader\obj\Debug\SharePirates.TorrentDownloader.csprojResolveAssemblyReference.cache
+C:\Dev\ASPC2013\SharePirates.TorrentDownloader\obj\Debug\SharePirates.TorrentDownloader.exe
+C:\Dev\ASPC2013\SharePirates.TorrentDownloader\obj\Debug\SharePirates.TorrentDownloader.pdb

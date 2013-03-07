@@ -1,0 +1,8 @@
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\bin\Debug\SharePirates.TorrentNotifier.exe.config
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\bin\Debug\SharePirates.TorrentNotifier.exe
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\bin\Debug\SharePirates.TorrentNotifier.pdb
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\bin\Debug\ibuddylib.dll
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\obj\Debug\SharePirates.TorrentNotifier.csprojResolveAssemblyReference.cache
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\obj\Debug\SharePirates.TorrentNotifier.exe
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\obj\Debug\SharePirates.TorrentNotifier.pdb
+C:\Dev\ASPC2013\SharePirates.TorrentNotifier\bin\Debug\ibuddylib.pdb

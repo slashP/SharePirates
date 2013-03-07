@@ -1,0 +1,7 @@
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\bin\Debug\SharePirates.ContentTypes.dll
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\bin\Debug\SharePirates.ContentTypes.pdb
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\bin\Debug\Fianbakken.Sharepoint.Annotations.dll
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\bin\Debug\Fianbakken.Sharepoint.Annotations.pdb
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\obj\Debug\SharePirates.ContentTypes.csprojResolveAssemblyReference.cache
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\obj\Debug\SharePirates.ContentTypes.dll
+C:\Dev\ASPC2013\SharePirates.ContentTypes\SharePirates.ContentTypes\obj\Debug\SharePirates.ContentTypes.pdb
