@@ -47,8 +47,7 @@ namespace SharePirates.TorrentDownloader
                                     Directory.CreateDirectory(downloadFolder);
                                 }
                                 var data = file.OpenBinary();
-                                var torrentName = (string)item["TorrentName"];
-                                var pathTorrentFile = Path.Combine(downloadFolder, torrentName + ".torrent");
+                                var pathTorrentFile = Path.Combine(downloadFolder, attachment + ".torrent");
                                 File.WriteAllBytes(pathTorrentFile, data);
                                 Console.WriteLine("--File = " + file.Name);
                             }
