@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
-using SharePirates.Common;
 
 namespace SharePirates.Artefacts.Layouts.SharePirates.Artefacts
 {
@@ -32,8 +26,9 @@ namespace SharePirates.Artefacts.Layouts.SharePirates.Artefacts
 
         protected void AddTorrentToList(Stream stream, string filename)
         {
+            SPContext.Current.Web.AllowUnsafeUpdates = true;
             var contenttype = SPContext.Current.Web.ContentTypes["TorrentFile"];
-            var lib = SPContext.Current.Web.Lists[SiteDefinition.GetTorrentLib()];
+            var lib = SPContext.Current.Web.Lists["TorrentFiles"];
 
             var data = new byte[stream.Length];
             stream.Read(data, 0, (int) stream.Length);
@@ -46,6 +41,8 @@ namespace SharePirates.Artefacts.Layouts.SharePirates.Artefacts
             item.Update();
             
             Web.Update();
+
+            SPContext.Current.Web.AllowUnsafeUpdates = false;
         }
     }
 }
