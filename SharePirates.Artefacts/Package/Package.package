@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package dslVersion="1.0.0.0" 
+        Id="12bb65a3-9ee6-4632-92ff-20030505cacc" 
+        solutionId="12bb65a3-9ee6-4632-92ff-20030505cacc" 
+        xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel" 
+        name="SharePirates.Artefacts"
+        sharePointProductVersion="15.0">
+</package>
