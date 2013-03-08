@@ -4,29 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.SharePoint;
+using SharePirates.Common;
 
 namespace SharePirates.TorrentDownloader
 {
+    /// <summary>
+    /// Program to initiate downloading of approved torrents
+    /// </summary>
     class Program
     {
 
-        private static string GetDefaultUrl()
-        {
-            return "http://fianbakken.com";
-        }
-        private static string GetTorrentLib()
-        {
-            return "TorrentFiles";
-        }
+       
         static void Main(string[] args)
         {
-            string url = args.Length < 1 ? GetDefaultUrl() : args[0];
+            string url = args.Length < 1 ? SiteDefinition.GetDefaultUrl() : args[0];
 
             using (var site = new SPSite(url))
             {
                 using (var web = site.OpenWeb())
                 {
-                    var list = web.Lists[GetTorrentLib()];
+                    var list = web.Lists[SiteDefinition.GetTorrentLib()];
 
                     foreach (SPListItem item in list.Items)
                     {

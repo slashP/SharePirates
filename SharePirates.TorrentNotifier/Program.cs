@@ -9,15 +9,11 @@ namespace SharePirates.TorrentNotifier
 {
     class Program
     {
-
-        private static string GetDefaultUrl()
-        {
-            return "http://fianbakken.com";
-        }
-        private static string GetTorrentLib()
-        {
-            return "TorrentFiles";
-        }
+        /// <summary>
+        ///  Program to notify when a torrent is finished downlodaing..
+        /// </summary>
+        /// <returns></returns>
+       
 
         static void Main(string[] args)
         {
@@ -38,8 +34,7 @@ namespace SharePirates.TorrentNotifier
             //    }
             //}
 
-            var buddy = ibuddylib.BuddyManager.Global;
-
+            
             Console.Read();
         }
     }

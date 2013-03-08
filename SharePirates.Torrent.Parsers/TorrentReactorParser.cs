@@ -27,6 +27,7 @@ namespace SharePirates.Torrent.Parsers
                 var key = metaNode.GetAttributeValue("name", string.Empty);
                 var value = metaNode.GetAttributeValue("content", string.Empty);
             }
+
             return _values;
         }
 
