@@ -30,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fianbakken.Sharepoint.Annotations">
+    <Reference Include="Fianbakken.Sharepoint.Annotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Binaries\Fianbakken.Sharepoint.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />

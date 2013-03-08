@@ -3,7 +3,7 @@ using Fianbakken.Sharepoint.Annotations.Sharepoint;
 
 namespace SharePirates.ContentTypes
 {
-    [ContentTypeList("MediaFiles")]
+    [ContentTypeList("MediaFiles", ListTemplate = "Asset Library")]
     [ContentType("Media", ContentTypeIds.Video, "SharePirates")]
     class Media
     {
