@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="f720c2d2-7f56-4a71-9d2b-7a0bf00e3aee" solutionId="f720c2d2-7f56-4a71-9d2b-7a0bf00e3aee" resetWebServer="false" sharePointProductVersion="15.0" name="SharePirates.Chat" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <features>
+    <featureReference itemId="43f2da96-9730-4705-8ed6-af3e600d98b5" />
+  </features>
+  <projectItems>
+    <projectItemReference itemId="99aae07a-e5da-4c9e-92fd-15b6bb91aa22" />
+  </projectItems>
+</package>
