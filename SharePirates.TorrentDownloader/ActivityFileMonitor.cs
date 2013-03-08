@@ -5,6 +5,11 @@ namespace SharePirates.TorrentDownloader
 {
     class ActivityFileMonitor
     {
+        public ActivityFileMonitor(string path)
+        {
+            StartActivityMonitoring(path);
+        }
+
         // System.IO
         readonly FileSystemWatcher _watchFolder = new FileSystemWatcher();
         public event EventHandler<FileSystemEventArgs> RaiseFileAddedEvent;
@@ -31,7 +36,7 @@ namespace SharePirates.TorrentDownloader
             }
         }
 
-        public void StartActivityMonitoring(string sPath)
+        private void StartActivityMonitoring(string sPath)
         {
             _watchFolder.Path = sPath;
             _watchFolder.NotifyFilter = NotifyFilters.DirectoryName;

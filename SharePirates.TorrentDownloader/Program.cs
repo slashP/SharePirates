@@ -72,14 +72,11 @@ namespace SharePirates.TorrentDownloader
 
         private static void SetupActivityMonitors()
         {
-            var torrentDeletedByUtorrentActivityMonitor = new ActivityFileMonitor();
-            torrentDeletedByUtorrentActivityMonitor.StartActivityMonitoring(TorrentDeletedPath);
+            var torrentDeletedByUtorrentActivityMonitor = new ActivityFileMonitor(TorrentDeletedPath);
             torrentDeletedByUtorrentActivityMonitor.RaiseFileDeletedEvent += (sender, eventArgs) => FileDeletedByUtorrent(eventArgs);
-            var torrentAddedByUtorrentActivityMonitor = new ActivityFileMonitor();
-            torrentAddedByUtorrentActivityMonitor.StartActivityMonitoring(TorrentAddedPath);
+            var torrentAddedByUtorrentActivityMonitor = new ActivityFileMonitor(TorrentAddedPath);
             torrentAddedByUtorrentActivityMonitor.RaiseFileAddedEvent += (sender, eventArgs) => FileAddedByUtorrent(eventArgs);
-            var fileChangedActivityMonitor = new ActivityFileMonitor();
-            fileChangedActivityMonitor.StartActivityMonitoring(TorrentDownloadPath);
+            var fileChangedActivityMonitor = new ActivityFileMonitor(TorrentDownloadPath);
             fileChangedActivityMonitor.RaiseFileChangedEvent += (sender, eventArgs) => FileChanged(eventArgs);
         }
 
