@@ -11,11 +11,9 @@
 <input type="button" id="chatButton" value="Chat"/>
 <div id="chatArea"></div>
 <div id="soundContainer"></div>
-<%--<embed src='../_layouts/15/SharePirates.Chat/arr.mp3' hidden='false' autostart='true' loop='false' />--%>
-<script src="../_layouts/15/SharePirates.Chat/jquery-1.9.1.min.js" type="text/javascript"></script>
-<script src="../_layouts/15/SharePirates.Chat/jquery.signalR-1.0.1.min.js" type="text/javascript"></script>
-<%--<SharePoint:ScriptLink ID="signalr" runat="server" Name="~/sites/movies/SiteAssets/jquery.signalR-1.0.1.min.js"></SharePoint:ScriptLink>
-<SharePoint:ScriptLink ID="jquery" runat="server" Name="~/sites/movies/SiteAssets/jquery-1.9.1.min.js"></SharePoint:ScriptLink>--%>
+<script src="/_layouts/15/SharePirates.Chat/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/_layouts/15/SharePirates.Chat/jquery.signalR-1.0.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/_layouts/15/sp.debug.js"></script>
 
 
 <script type="text/javascript" src="http://ciberpirates.apphb.com/signalr/hubs"></script>
