@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="dd1df9e3-0a76-4941-a180-f6b78a80f597" solutionId="dd1df9e3-0a76-4941-a180-f6b78a80f597" resetWebServer="false" sharePointProductVersion="15.0" name="SharePirates.MoviePage" xmlns="http://schemas.microsoft.com/VisualStudio/2008/SharePointTools/PackageModel">
+  <projectItems>
+    <projectItemReference itemId="2ba56ef3-e3e1-4cfc-bbf8-33c5315ebc26" />
+    <projectItemReference itemId="b629c082-9245-4f8f-a1ee-86eb05fb612b" />
+  </projectItems>
+</package>
