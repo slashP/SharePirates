@@ -14,12 +14,115 @@ $DEVPATH = "C:\Dev\ASPC2013\SharePirates"
 $DEVPATHS = @{
                 "ContentTypes" = "$DEVPATH\SharePirates.ContentTypes\SharePirates.ContentTypes\bin\Debug\";  
                 "SetupFramework" = "$DEVPATH\binaries\"; 
+                "TorrentPath" = "$DEVPATH\torrents\" 
+                "MovieImport" = "C:\Temp\video\";            
              };
 
 
 
 Set-Location "$DEVPATH"
 
+
+function Setup-Movies(){
+    $path = "$($DEVPATHS['MovieImport'])";
+    $files = ls -include *.mp4 -Recurse -Path $path;
+
+    $list = $web.Lists["MediaFiles"];
+
+
+    $files|%{
+        $meta = $_.Fullname.Replace($_.Extension, ".txt");
+        Write-Host -ForegroundColor Green "$meta"
+
+        if(-not [System.IO.File]::Exists($meta)){            
+            New-Item  -Path $meta -ItemType file;                
+        }
+
+        $csv = Import-Csv -Path $meta -Delimiter ";"
+
+        
+        $csv[0].Title;
+
+        $stream = $_.OpenRead();
+        $length = $stream.Length;
+        
+        $file= $list.RootFolder.Files.Add($_.Name, $stream, $true);
+
+
+        $file["ContentTypeId"] = $web.ContentTypes["Media"].Id.ToString();
+        
+
+        $list.Update();
+
+        $file;
+    }
+
+}
+
+function Print-Values(){    
+    begin {
+
+    } 
+
+    process {
+        $item = $_;
+        $_.Fields|%{ @{$_.InternalName = $item[$_.InternalName];} }
+
+    }
+}
+function Setup-Data(){
+    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession  ;
+    $cc = New-Object System.Net.CookieContainer  ;
+    $a=("OAID","bec938cf83d6b556caddf46cffa60f5b","ads.fulldls.com/","2147484672","3814638208","30358202","1925486647","30284777","*");
+    $a|%{
+       
+        $cookie = New-Object System.Net.Cookie($_, $_, "/","torrentreactor.net");
+        $cc.Add($cookie);
+    }
+    $session.Cookies = $cc;
+
+
+    $data = Invoke-WebRequest "http://www.torrentreactor.net/rss.php?sid=269"
+    $xml = [xml]$data.Content;
+    $inner = $xml.rss.channel.InnerXml.Replace("item", "feeditem");
+    $fix = [xml]"<items>$inner</items>";
+    $fix.items.feeditem|%{        
+        $d = $_.description;
+        $categories = $d.Substring(0, $d.IndexOf("Size:")).Replace("Category: ", "").Replace(".","").Split("-")|%{$_.Trim();}
+        $size = $d.Substring($d.IndexOf("Size:"),  $d.IndexOf("Status:")-$d.IndexOf("Size:")).Replace("Size:","").Trim();
+        $status = $d.Substring($d.IndexOf("Status:"),  $d.IndexOf("Hash:")-$d.IndexOf("Status:")).Replace("Status:","").Trim();
+        $link = $_.link;
+        $title= $_.title;
+
+        Write-Host -ForegroundColor Green "Downloading torrent info from $link"
+
+        $web = Invoke-WebRequest $link -WebSession $session -UseBasicParsing;
+        $links = $web.Links;
+        $directLink = $links|? title -eq "Download"
+        $file="";
+        if($directLink){
+            $url = $directLink.href;
+            $file = $directLink.innerHtml.Replace("torrent",".torrent").Replace("..",".");          
+            $file = "$($DEVPATHS['SetupFramework'])$file"
+            $fakefile = "$($DEVPATHS['SetupFramework'])Fake.Torrent"
+            
+            Write-Host "Downloading $url" -ForegroundColor Green;
+            $file = Invoke-WebRequest $url -OutFile $file -WebSession $session -UseBasicParsing
+
+            
+            #cp $fakefile $file;
+        }
+
+           @{ 
+                "categories"=$categories;
+                "size"=$size;
+                "status"=$status;
+                "title"=$title;
+                "link"=$link;
+                "file"=$file;
+            }
+    }
+}
 
 function Create-Setup () {   
     # Add required DLL
@@ -40,6 +143,8 @@ function Setup-Types() {
     return $setup.SetupContentTypesFromAssembly($web, $contentTypesDll, $namespace, $true);
 
 }
+
+
 
 function restart() {
 	Start-Process powershell_ise
@@ -117,7 +222,7 @@ function Clean-Site(){
     Setup-Site;
     Reload-Site;
 
-#    Setup-Types
+    Setup-Types
 }
 
 function Setup-Urls(){
