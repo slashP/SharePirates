@@ -26,12 +26,12 @@ namespace SharePirates.Torrent.Parsers
             var divHtmlNodes = _document.DocumentNode.Descendants("div");
             var sizehtmlnode = divHtmlNodes.First(x => x.InnerHtml == "Størrelse:");
             var size = sizehtmlnode.ParentNode.Descendants("div").Last().InnerText;
-            _values.Add("size", size);
+            _values.Add("torrentSize", size);
             var title = _document.DocumentNode.Descendants("title").First().InnerText;
-            _values.Add("title", title);
+            _values.Add("torrentTitle", title);
             var categoryNodes = _document.DocumentNode.Descendants("div").First(x => x.InnerHtml == "Kategori:").ParentNode.Descendants("a");
             var categories = string.Join(",", categoryNodes.Select(x => x.InnerText));
-            _values.Add("categories", categories);
+            _values.Add("torrentCategories", categories);
             return _values;
         }
 
