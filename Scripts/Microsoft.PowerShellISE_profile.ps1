@@ -8,7 +8,7 @@ $web = $site.RootWeb;
 
 
 # Some neat startup methods
-$DEVPATH = "C:\Dev\ASPC2013\"
+$DEVPATH = "C:\Dev\ASPC2013\SharePirates"
 # ADD ALL PATHS where WSPs or binaries needed should be loaded from
 # WSPS will be fetched automagically from here.
 $DEVPATHS = @{
