@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
 using SharePirates.Common;
@@ -10,7 +16,18 @@ namespace SharePirates.Artefacts.Layouts.SharePirates.Artefacts
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            var torrentUrl = Request.Params["torrentUrl"];
+            var title = Request.Params["title"];
+            using (var client = new WebClient())
+            {
+                if (string.IsNullOrEmpty(torrentUrl))
+                {
+                    return;
+                }
+                var data = client.DownloadData(torrentUrl);
+                var stream = new MemoryStream(data);
+                AddTorrentToList(stream, title + ".torrent");
+            }
         }
 
         protected void AddTorrentToList(Stream stream, string filename)
