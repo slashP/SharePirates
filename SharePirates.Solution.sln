@@ -16,6 +16,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.Torrent.DataPopulator", "SharePirates.Torrent.DataPopulator\SharePirates.Torrent.DataPopulator.csproj", "{329306F5-5B1F-4D1D-9863-5CBA4FED8AC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.Artefacts", "SharePirates.Artefacts\SharePirates.Artefacts.csproj", "{FB36055F-2DC7-4B0D-96E6-12ED9FD3FC41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.Chat", "SharePirates.Chat\SharePirates.Chat.csproj", "{02AA2864-A526-4443-9637-1D98183763D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.MoviePage", "SharePirates.MoviePage\SharePirates.MoviePage.csproj", "{F2BED549-DFF6-4713-A73D-9C14D6A568D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +60,18 @@ Global
 		{FB36055F-2DC7-4B0D-96E6-12ED9FD3FC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB36055F-2DC7-4B0D-96E6-12ED9FD3FC41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB36055F-2DC7-4B0D-96E6-12ED9FD3FC41}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{02AA2864-A526-4443-9637-1D98183763D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02AA2864-A526-4443-9637-1D98183763D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02AA2864-A526-4443-9637-1D98183763D5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{02AA2864-A526-4443-9637-1D98183763D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02AA2864-A526-4443-9637-1D98183763D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02AA2864-A526-4443-9637-1D98183763D5}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F2BED549-DFF6-4713-A73D-9C14D6A568D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2BED549-DFF6-4713-A73D-9C14D6A568D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2BED549-DFF6-4713-A73D-9C14D6A568D6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F2BED549-DFF6-4713-A73D-9C14D6A568D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2BED549-DFF6-4713-A73D-9C14D6A568D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2BED549-DFF6-4713-A73D-9C14D6A568D6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,30 @@
+﻿
+#suiteBar {
+ height:100px;   
+}
+	
+#suiteBarLeft, #suiteBarRight {
+     background: url('/sites/movies/SiteAssets/planke.png') center center;
+}
+
+ #s4-bodyContainer {
+     background: url('../images/MoviePage/jolly-roger-1.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover; 
+        width: 100%; 
+ }
+
+ .moviePreview { 
+  text-align:center;
+  width:350px;
+  height:300px;              
+  float: left;
+
+ }
+ 
+ .movieContainer{
+  overflow: auto;
+  width: 100%;
+}
