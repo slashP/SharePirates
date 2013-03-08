@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using HtmlAgilityPack;
 
 namespace SharePirates.Torrent.Parsers
@@ -15,6 +16,31 @@ namespace SharePirates.Torrent.Parsers
         public TorrentReactorParser()
         {
             _webClient = new WebClient();
+        }
+
+        public IDictionary<string, string> GetMetaDataTorrentReactor(string url)
+        {
+            LoadHtmlFromUrl(url);
+            var torrentUrl = GetHrefAttributeValue("name_ansv1");
+            _values.Add("torrentUrl", torrentUrl);
+            var divHtmlNodes = _document.DocumentNode.Descendants("div");
+            var sizehtmlnode = divHtmlNodes.First(x => x.InnerHtml == "Størrelse:");
+            var size = sizehtmlnode.ParentNode.Descendants("div").Last().InnerText;
+            _values.Add("size", size);
+            var title = _document.DocumentNode.Descendants("title").First().InnerText;
+            _values.Add("title", title);
+            var categoryNodes = _document.DocumentNode.Descendants("div").First(x => x.InnerHtml == "Kategori:").ParentNode.Descendants("a");
+            var categories = string.Join(",", categoryNodes.Select(x => x.InnerText));
+            _values.Add("categories", categories);
+            return _values;
+        }
+
+        private string GetHrefAttributeValue(string divId)
+        {
+            var htmlNodes = _document.DocumentNode.Descendants("div");
+            var torrentUrlHtmlNode = htmlNodes.First(x => x.GetAttributeValue("id", string.Empty) == divId);
+            var torrentUrl = torrentUrlHtmlNode.Element("a").GetAttributeValue("href", string.Empty);
+            return torrentUrl;
         }
 
 
@@ -31,7 +57,7 @@ namespace SharePirates.Torrent.Parsers
             //}
 
             //title
-            GetValuePair(_document.DocumentNode.SelectSingleNode("//div[@id='title']"),"id", "innerHtml");
+            InsertValuePair(_document.DocumentNode.SelectSingleNode("//div[@id='title']"),"id", "innerHtml");
             var metadtNodes = _document.DocumentNode.SelectNodes("//dl[@class='col1']/dt");
             var metaddNodes = _document.DocumentNode.SelectNodes("//dl[@class='col1']/dd");
             var count = 0;
@@ -54,11 +80,11 @@ namespace SharePirates.Torrent.Parsers
             }            
 
 
-            GetValuePair(_document.DocumentNode.SelectSingleNode("//div[@class='download']/a"), "magnet", "href");
+            InsertValuePair(_document.DocumentNode.SelectSingleNode("//div[@class='download']/a"), "magnet", "href");
             return _values;
         }
 
-        private void GetValuePair(HtmlNode metaNode, string keyName, string valueName)
+        private void InsertValuePair(HtmlNode metaNode, string keyName, string valueName)
         {
             var key = string.IsNullOrEmpty(metaNode.GetAttributeValue(keyName, string.Empty)) ? 
                 keyName : 
@@ -71,9 +97,9 @@ namespace SharePirates.Torrent.Parsers
 
         private void LoadHtmlFromUrl(string url)
         {
-            var html = _webClient.DownloadString(url);
+            var htmlDataBytes = _webClient.DownloadData(url);
             _document = new HtmlDocument();
-            _document.LoadHtml(html);
+            _document.LoadHtml(Encoding.UTF8.GetString(htmlDataBytes));
             _values = new Dictionary<string, string>();
         }
     }
