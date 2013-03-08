@@ -10,6 +10,8 @@
 <input type="text" id="chatTextbox" />
 <input type="button" id="chatButton" value="Chat"/>
 <div id="chatArea"></div>
+<div id="soundContainer"></div>
+<%--<embed src='../_layouts/15/SharePirates.Chat/arr.mp3' hidden='false' autostart='true' loop='false' />--%>
 <script src="../_layouts/15/SharePirates.Chat/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="../_layouts/15/SharePirates.Chat/jquery.signalR-1.0.1.min.js" type="text/javascript"></script>
 <%--<SharePoint:ScriptLink ID="signalr" runat="server" Name="~/sites/movies/SiteAssets/jquery.signalR-1.0.1.min.js"></SharePoint:ScriptLink>
@@ -31,6 +33,10 @@
                     for (var i = 0; i < result.length; i++) {
                         var chatMessage = result[i];
                         var chatTag = "<div class='chatMessage'>" + chatMessage.User + "<br />" + chatMessage.Message + "</div>";
+                        if (chatMessage.Message.toLowerCase().indexOf("arr") >= 0) { playSound("arr.mp3"); }
+                        if (chatMessage.Message.toLowerCase().indexOf("mate") >= 0) { playSound("matey.mp3"); }
+                        if (chatMessage.Message.toLowerCase().indexOf("plank") >= 0) { playSound("plank.mp3"); }
+                        if (chatMessage.Message.toLowerCase().indexOf("timber") >= 0) { playSound("timbers.mp3"); }
                         newHtml += chatTag;
                     }
                     $("#chatArea").prepend(newHtml);
@@ -87,6 +93,11 @@
 
         function onQueryFailed(sender, args) {
             alert('Query failed!');
+        }
+        
+        function playSound(soundfile) {
+            $("#soundContainer").html("<embed src='../_layouts/15/SharePirates.Chat/" + soundfile + "' hidden='true' autostart='true' loop='false' />");
+            $("#soundContainer embed").load();
         }
     });
 

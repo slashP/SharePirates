@@ -74,8 +74,12 @@
     <None Include="SharePirates.Chat\Elements.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Layouts\SharePirates.Chat\arr.mp3" />
     <Content Include="Layouts\SharePirates.Chat\jquery-1.9.1.min.js" />
     <Content Include="Layouts\SharePirates.Chat\jquery.signalR-1.0.1.min.js" />
+    <Content Include="Layouts\SharePirates.Chat\matey.mp3" />
+    <Content Include="Layouts\SharePirates.Chat\plank.mp3" />
+    <Content Include="Layouts\SharePirates.Chat\timbers.mp3" />
     <Content Include="SharePirates.Chat\SharePirates.Chat.ascx">
       <Generator>SharePointWebPartCodeGenerator</Generator>
       <LastGenOutput>SharePirates.Chat.ascx.g.cs</LastGenOutput>
