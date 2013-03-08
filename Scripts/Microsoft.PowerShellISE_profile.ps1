@@ -13,7 +13,7 @@ $DEVPATH = "C:\Dev\ASPC2013\SharePirates"
 # WSPS will be fetched automagically from here.
 $DEVPATHS = @{
                 "ContentTypes" = "$DEVPATH\SharePirates.ContentTypes\SharePirates.ContentTypes\bin\Debug\";  
-                "SetupFramework" = "C:\Dev\Fianbakken\Fianbakken.Sharepoint.Annotations\Fianbakken.Sharepoint.Setup\bin\Debug\"; 
+                "SetupFramework" = "$DEVPATH\binaries\"; 
              };
 
 

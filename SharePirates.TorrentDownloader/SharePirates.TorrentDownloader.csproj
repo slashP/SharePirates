@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SharePirates.Common\SharePirates.Common.csproj">
+    <ProjectReference Include="..\SharePirates.Common\SharePirates.Common.csproj">
       <Project>{6484A2DD-BC21-4754-B8C1-C61D7D04E61A}</Project>
       <Name>SharePirates.Common</Name>
     </ProjectReference>
