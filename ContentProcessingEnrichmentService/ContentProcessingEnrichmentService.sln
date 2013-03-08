@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentProcessingEnrichmentService", "ContentProcessingEnrichmentService\ContentProcessingEnrichmentService.csproj", "{AC904687-EEA6-4FB8-8628-115DC638040B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.Torrent.Parsers", "..\..\Users\sebngu\Documents\GitHub\SharePirates\SharePirates.Torrent.Parsers\SharePirates.Torrent.Parsers.csproj", "{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC904687-EEA6-4FB8-8628-115DC638040B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC904687-EEA6-4FB8-8628-115DC638040B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC904687-EEA6-4FB8-8628-115DC638040B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC904687-EEA6-4FB8-8628-115DC638040B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
