@@ -19,10 +19,14 @@ namespace SharePirates.Torrent.Parsers
         public Dictionary<string, string> GetMetaData(string url)
         {
             LoadHtmlFromUrl(url);
+            // Parse nodes
+            var metaNodes = _document.DocumentNode.SelectNodes("//meta");
 
-            var node = _document.DocumentNode.SelectSingleNode("//");
-
-
+            foreach (var metaNode in metaNodes)
+            {
+                var key = metaNode.GetAttributeValue("name", string.Empty);
+                var value = metaNode.GetAttributeValue("content", string.Empty);
+            }
             return _values;
         }
 
