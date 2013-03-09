@@ -102,7 +102,7 @@ namespace SharePirates.TorrentDownloader
             {
                 torrent.CurrentSize = folderSize;
             }
-            var torrentArray = Torrents.Select(x => new { Name = x.Key, PercentComplete = Math.Round(x.Value.CurrentSize/x.Value.OriginalSize, 2) }).ToList();
+            var torrentArray = Torrents.Select(x => new { Name = x.Key, PercentComplete = Math.Round(x.Value.CurrentSize/x.Value.OriginalSize*100, 2) }).ToList();
             var json = JsonConvert.SerializeObject(torrentArray);
             _torrentHub.Invoke("UpdateTorrents", json);
         }

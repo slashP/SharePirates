@@ -50,54 +50,53 @@ namespace SharePirates.Chat.VisualWebPart1 {
                         "value=\"Chat\"/>\r\n<div id=\"chatArea\"></div>\r\n<div id=\"soundContainer\"></div>\r\n<scr" +
                         "ipt src=\"/_layouts/15/SharePirates.Chat/jquery-1.9.1.min.js\" type=\"text/javascri" +
                         "pt\"></script>\r\n<script src=\"/_layouts/15/SharePirates.Chat/jquery.signalR-1.0.1." +
-                        "min.js\" type=\"text/javascript\"></script>\r\n    <script type=\"text/javascript\" src" +
-                        "=\"/_layouts/15/sp.debug.js\"></script>\r\n\r\n\r\n<script type=\"text/javascript\" src=\"h" +
-                        "ttp://ciberpirates.apphb.com/signalr/hubs\"></script>\r\n<script type=\"text/javascr" +
-                        "ipt\">\r\n    var sendMessage;\r\n    $(document).ready(function () {\r\n        $(func" +
-                        "tion () {\r\n            var chatHub = $.connection.chatHub;\r\n            $.connec" +
-                        "tion.hub.url = \'http://ciberpirates.apphb.com:80/signalr\';\r\n            $.suppor" +
-                        "t.cors = true;\r\n            $.extend(chatHub.client, {\r\n                sendMess" +
-                        "age: function (result) {\r\n                    //$(\"#chatArea\").html(\"\");\r\n      " +
-                        "              var newHtml = \"\";\r\n                    for (var i = 0; i < result." +
-                        "length; i++) {\r\n                        var chatMessage = result[i];\r\n          " +
-                        "              var chatTag = \"<div class=\'chatMessage\'>\" + chatMessage.User + \"<b" +
-                        "r />\" + chatMessage.Message + \"</div>\";\r\n                        if (chatMessage" +
-                        ".Message.toLowerCase().indexOf(\"arr\") >= 0) { playSound(\"arr.mp3\"); }\r\n         " +
-                        "               if (chatMessage.Message.toLowerCase().indexOf(\"mate\") >= 0) { pla" +
-                        "ySound(\"matey.mp3\"); }\r\n                        if (chatMessage.Message.toLowerC" +
-                        "ase().indexOf(\"plank\") >= 0) { playSound(\"plank.mp3\"); }\r\n                      " +
-                        "  if (chatMessage.Message.toLowerCase().indexOf(\"timber\") >= 0) { playSound(\"tim" +
-                        "bers.mp3\"); }\r\n                        newHtml += chatTag;\r\n                    " +
-                        "}\r\n                    $(\"#chatArea\").prepend(newHtml);\r\n                    $(\"" +
-                        "#chatArea\").html($(\"#chatArea > div\").slice(0, 10));\r\n                }\r\n       " +
-                        "     });\r\n            //setTimeout(function () { // hack. couldn\'t get start().d" +
-                        "one(function(){ to work for some reason\r\n            //    chatHub.server.getAll" +
-                        "();\r\n            //}, 2500);\r\n            $.connection.hub.start({ transport: \'l" +
-                        "ongPolling\', xdomain: true }).done(function () {\r\n                chatHub.server" +
-                        ".getAll();\r\n            });\r\n            $(\"#chatButton\").click(function () {\r\n " +
-                        "               getUserName2();\r\n                //sendMessage();\r\n            })" +
-                        ";\r\n\r\n            $(\'#chatTextbox\').keypress(function (e) {\r\n                if (" +
-                        "e.which == 13) {\r\n                    getUserName2();\r\n                    //sen" +
-                        "dMessage();\r\n                }\r\n            });\r\n            sendMessage = funct" +
-                        "ion (user) {\r\n                var message = $(\"#chatTextbox\").val();\r\n          " +
-                        "      chatHub.server.send(message, user);\r\n                $(\"#chatTextbox\").val" +
-                        "(\'\');\r\n            };\r\n\r\n        });\r\n        function getUserName() {\r\n        " +
-                        "    var thisUser = $().SPServices.SPGetCurrentUser({\r\n                fieldName:" +
-                        " \"Name\",\r\n                debug: false\r\n            });\r\n            return this" +
-                        "User;\r\n        }\r\n        var currentUser;\r\n        function getUserName2() {\r\n " +
-                        "           this.clientContext = new SP.ClientContext.get_current();\r\n           " +
-                        " this.oWeb = clientContext.get_web();\r\n            currentUser = this.oWeb.get_c" +
-                        "urrentUser();\r\n            currentUser.retrieve();\r\n            this.clientConte" +
-                        "xt.load(currentUser);\r\n            this.clientContext.executeQueryAsync(Function" +
-                        ".createDelegate(this, onQuerySucceeded), Function.createDelegate(this, onQueryFa" +
-                        "iled));\r\n        }\r\n\r\n        function onQuerySucceeded() {\r\n            var log" +
-                        "inName = currentUser.get_title();\r\n            console.log(loginName);\r\n        " +
-                        "    sendMessage(loginName);\r\n            //alert(currentUser.get_loginName()); \r" +
-                        "\n        }\r\n\r\n        function onQueryFailed(sender, args) {\r\n            alert(" +
-                        "\'Query failed!\');\r\n        }\r\n        \r\n        function playSound(soundfile) {\r" +
-                        "\n            $(\"#soundContainer\").html(\"<embed src=\'../_layouts/15/SharePirates." +
-                        "Chat/\" + soundfile + \"\' hidden=\'true\' autostart=\'true\' loop=\'false\' />\");\r\n     " +
-                        "       $(\"#soundContainer embed\").load();\r\n        }\r\n    });\r\n\r\n</script>"));
+                        "min.js\" type=\"text/javascript\"></script>\r\n\r\n\r\n<script type=\"text/javascript\" src" +
+                        "=\"http://ciberpirates.apphb.com/signalr/hubs\"></script>\r\n<script type=\"text/java" +
+                        "script\">\r\n    var sendMessage;\r\n    $(document).ready(function () {\r\n        $(f" +
+                        "unction () {\r\n            var chatHub = $.connection.chatHub;\r\n            $.con" +
+                        "nection.hub.url = \'http://ciberpirates.apphb.com:80/signalr\';\r\n            $.sup" +
+                        "port.cors = true;\r\n            $.extend(chatHub.client, {\r\n                sendM" +
+                        "essage: function (result) {\r\n                    //$(\"#chatArea\").html(\"\");\r\n   " +
+                        "                 var newHtml = \"\";\r\n                    for (var i = 0; i < resu" +
+                        "lt.length; i++) {\r\n                        var chatMessage = result[i];\r\n       " +
+                        "                 var chatTag = \"<div class=\'chatMessage\'>\" + chatMessage.User + " +
+                        "\"<br />\" + chatMessage.Message + \"</div>\";\r\n                        if (chatMess" +
+                        "age.Message.toLowerCase().indexOf(\"arr\") >= 0) { playSound(\"arr.mp3\"); }\r\n      " +
+                        "                  if (chatMessage.Message.toLowerCase().indexOf(\"mate\") >= 0) { " +
+                        "playSound(\"matey.mp3\"); }\r\n                        if (chatMessage.Message.toLow" +
+                        "erCase().indexOf(\"plank\") >= 0) { playSound(\"plank.mp3\"); }\r\n                   " +
+                        "     if (chatMessage.Message.toLowerCase().indexOf(\"timber\") >= 0) { playSound(\"" +
+                        "timbers.mp3\"); }\r\n                        newHtml += chatTag;\r\n                 " +
+                        "   }\r\n                    $(\"#chatArea\").prepend(newHtml);\r\n                    " +
+                        "$(\"#chatArea\").html($(\"#chatArea > div\").slice(0, 10));\r\n                }\r\n    " +
+                        "        });\r\n            //setTimeout(function () { // hack. couldn\'t get start(" +
+                        ").done(function(){ to work for some reason\r\n            //    chatHub.server.get" +
+                        "All();\r\n            //}, 2500);\r\n            $.connection.hub.start({ transport:" +
+                        " \'longPolling\', xdomain: true }).done(function () {\r\n                chatHub.ser" +
+                        "ver.getAll();\r\n            });\r\n            $(\"#chatButton\").click(function () {" +
+                        "\r\n                getUserName2();\r\n                //sendMessage();\r\n           " +
+                        " });\r\n\r\n            $(\'#chatTextbox\').keypress(function (e) {\r\n                i" +
+                        "f (e.which == 13) {\r\n                    getUserName2();\r\n                    //" +
+                        "sendMessage();\r\n                }\r\n            });\r\n            sendMessage = fu" +
+                        "nction (user) {\r\n                var message = $(\"#chatTextbox\").val();\r\n       " +
+                        "         chatHub.server.send(message, user);\r\n                $(\"#chatTextbox\")." +
+                        "val(\'\');\r\n            };\r\n\r\n        });\r\n        function getUserName() {\r\n     " +
+                        "       var thisUser = $().SPServices.SPGetCurrentUser({\r\n                fieldNa" +
+                        "me: \"Name\",\r\n                debug: false\r\n            });\r\n            return t" +
+                        "hisUser;\r\n        }\r\n        var currentUser;\r\n        function getUserName2() {" +
+                        "\r\n            this.clientContext = new SP.ClientContext.get_current();\r\n        " +
+                        "    this.oWeb = clientContext.get_web();\r\n            currentUser = this.oWeb.ge" +
+                        "t_currentUser();\r\n            currentUser.retrieve();\r\n            this.clientCo" +
+                        "ntext.load(currentUser);\r\n            this.clientContext.executeQueryAsync(Funct" +
+                        "ion.createDelegate(this, onQuerySucceeded), Function.createDelegate(this, onQuer" +
+                        "yFailed));\r\n        }\r\n\r\n        function onQuerySucceeded() {\r\n            var " +
+                        "loginName = currentUser.get_title();\r\n            console.log(loginName);\r\n     " +
+                        "       sendMessage(loginName);\r\n            //alert(currentUser.get_loginName())" +
+                        "; \r\n        }\r\n\r\n        function onQueryFailed(sender, args) {\r\n            ale" +
+                        "rt(\'Query failed!\');\r\n        }\r\n        \r\n        function playSound(soundfile)" +
+                        " {\r\n            $(\"#soundContainer\").html(\"<embed src=\'../_layouts/15/SharePirat" +
+                        "es.Chat/\" + soundfile + \"\' hidden=\'true\' autostart=\'true\' loop=\'false\' />\");\r\n  " +
+                        "          $(\"#soundContainer embed\").load();\r\n        }\r\n    });\r\n\r\n</script>"));
         }
         
         private void InitializeControl() {
