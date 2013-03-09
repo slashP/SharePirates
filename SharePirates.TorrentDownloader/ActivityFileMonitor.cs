@@ -44,6 +44,11 @@ namespace SharePirates.TorrentDownloader
             _watchFolder.NotifyFilter | NotifyFilters.FileName;
             _watchFolder.NotifyFilter =
             _watchFolder.NotifyFilter | NotifyFilters.Attributes;
+            _watchFolder.NotifyFilter =
+            _watchFolder.NotifyFilter | NotifyFilters.LastWrite;
+
+            _watchFolder.IncludeSubdirectories = true;
+            _watchFolder.EnableRaisingEvents = true;
 
             _watchFolder.Changed += EventRaised;
             _watchFolder.Created += EventRaised;
@@ -68,6 +73,7 @@ namespace SharePirates.TorrentDownloader
         {
             switch (e.ChangeType)
             {
+                case WatcherChangeTypes.All:
                 case WatcherChangeTypes.Changed:
                     OnRaiseFileChangedEvent(e);
                     break;

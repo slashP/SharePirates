@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using Microsoft.SharePoint;
 using Microsoft.SharePoint.WebControls;
+using SharePirates.Torrent.Parsers;
 
 namespace SharePirates.Artefacts.Layouts.SharePirates.Artefacts
 {
@@ -18,7 +19,11 @@ namespace SharePirates.Artefacts.Layouts.SharePirates.Artefacts
                 {
                     return;
                 }
-                var data = client.DownloadData(torrentUrl);
+                var parser = new TorrentReactorParser();
+                var parsedTorrentSite = parser.GetMetaDataTorrentReactor(torrentUrl);
+                string tUrl;
+                if (!parsedTorrentSite.TryGetValue("torrentUrl", out tUrl)) return;
+                var data = client.DownloadData(tUrl);
                 var stream = new MemoryStream(data);
                 AddTorrentToList(stream, title + ".torrent");
             }

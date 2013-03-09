@@ -79,6 +79,12 @@
   <ItemGroup>
     <Folder Include="Features\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharePirates.Torrent.Parsers\SharePirates.Torrent.Parsers.csproj">
+      <Project>{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}</Project>
+      <Name>SharePirates.Torrent.Parsers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0'">11.0</VisualStudioVersion>

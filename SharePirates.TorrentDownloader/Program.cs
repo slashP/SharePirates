@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using Microsoft.SharePoint;
+using Newtonsoft.Json;
 using SharePirates.Common;
 
 namespace SharePirates.TorrentDownloader
@@ -22,42 +23,38 @@ namespace SharePirates.TorrentDownloader
         private const string TorrentDownloadPath = @"C:\Users\spdbadmin\Documents\Torrents\TorrentDataDownloading";
         private const string TorrentAddedPath = @"C:\Users\spdbadmin\Documents\Torrents\TorrentsFinished";
         private const string TorrentDeletedPath = @"C:\Users\spdbadmin\Documents\Torrents\TorrentsDownloading";
+        private static readonly IDictionary<string, Torrent> Torrents = new Dictionary<string, Torrent>();
+        private static SPWeb _web;
 
         static void Main(string[] args)
         {
             SetupSignalR();
             SetupActivityMonitors();
-            string url = args.Length < 1 ? SiteDefinition.GetDefaultUrl() : args[0];
-            using (var site = new SPSite(url))
+            string url = args.Length < 1 ? "http://win-5cdumdj4n76" : args[0];
+            var site = new SPSite(url);
+            _web = site.OpenWeb();
+            var list = _web.Lists[SiteDefinition.GetTorrentLib()];
+            while (true)
             {
-                using (var web = site.OpenWeb())
+                foreach (var item in list.Items.Cast<SPListItem>().Where(x => (string)x["FileStatus"] == "Not started" && (string)x["Approved"] == "Approved"))
                 {
-                    var list = web.Lists[SiteDefinition.GetTorrentLib()];
-                    while (true)
+                    const string downloadFolder = TorrentDeletedPath;
+                    foreach (String attachment in item.Attachments)
                     {
-                        foreach (var item in list.Items.Cast<SPListItem>().Where(x => (string)x["FileStatus"] == "Not started" && (string)x["Approved"] == "Approved"))
+                        var attachmentAbsoluteUrl = item.Attachments.UrlPrefix + attachment;
+                        var file = _web.GetFile(attachmentAbsoluteUrl);
+                        if (!Directory.Exists(downloadFolder))
                         {
-                            const string downloadFolder = TorrentDeletedPath;
-                            foreach (String attachment in item.Attachments)
-                            {
-                                var attachmentAbsoluteUrl = item.Attachments.UrlPrefix + attachment;
-                                var file = web.GetFile(attachmentAbsoluteUrl);
-                                if (!Directory.Exists(downloadFolder))
-                                {
-                                    Directory.CreateDirectory(downloadFolder);
-                                }
-                                var data = file.OpenBinary();
-                                var pathTorrentFile = Path.Combine(downloadFolder, attachment + ".torrent");
-                                File.WriteAllBytes(pathTorrentFile, data);
-                                Console.WriteLine("--File = " + file.Name);
-                            }
+                            Directory.CreateDirectory(downloadFolder);
                         }
-                        Thread.Sleep(60000);
+                        var data = file.OpenBinary();
+                        var pathTorrentFile = Path.Combine(downloadFolder, attachment + ".torrent");
+                        File.WriteAllBytes(pathTorrentFile, data);
+                        Console.WriteLine("--File = " + file.Name);
                     }
                 }
+                Thread.Sleep(60000);
             }
-            Console.WriteLine("Ready..");
-            Console.ReadKey();
         }
 
         private static void SetupSignalR()
@@ -81,43 +78,110 @@ namespace SharePirates.TorrentDownloader
 
         private static void FileChanged(FileSystemEventArgs eventArgs)
         {
-            var file = Path.GetDirectoryName(eventArgs.FullPath);
+            var folder = Path.GetDirectoryName(eventArgs.FullPath);
+            var torrentName = Path.GetFileName(Path.GetDirectoryName(eventArgs.FullPath));
             // TODO: report progress
+            var folderSize = CalculateFolderSize(folder);
+            Torrent torrent;
+            if (Torrents.TryGetValue(torrentName, out torrent))
+            {
+                torrent.CurrentSize = folderSize;
+            }
+            var torrentArray = Torrents.Select(x => new { Name = x.Key, PercentComplete = Math.Round(x.Value.CurrentSize/x.Value.OriginalSize, 2) }).ToList();
+            var json = JsonConvert.SerializeObject(torrentArray);
+            _torrentHub.Invoke("UpdateTorrents", json);
         }
 
         private static void FileAddedByUtorrent(FileSystemEventArgs eventArgs)
         {
-            var folderName = Path.GetDirectoryName(eventArgs.FullPath);
+            var torrentName = Path.GetFileNameWithoutExtension(eventArgs.FullPath);
             // Torrent is finished
             // GetListItemByFolderName - foldername == torrentName?
-            _torrentHub.Invoke("TorrentDownloaded", folderName);
-            SetListItemStatus(folderName, "Downloaded");
+            Torrents.Remove(torrentName);
+            _torrentHub.Invoke("TorrentDownloaded", torrentName);
+            SetListItemStatus(torrentName, "Downloaded");
         }
 
         private static void FileDeletedByUtorrent(FileSystemEventArgs eventArgs)
         {
             // Torrent is starting downloading
-            var folderName = Path.GetDirectoryName(eventArgs.FullPath);
-            _torrentHub.Invoke("TorrentDownloading", folderName);
-            SetListItemStatus(folderName, "Downloading");
+            var torrentName = Path.GetFileNameWithoutExtension(eventArgs.FullPath);
+            Torrents.Add(torrentName, new Torrent(20000F));
+            _torrentHub.Invoke("TorrentDownloading", torrentName);
+            try
+            {
+                SetListItemStatus(torrentName, "Downloading");
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        private static void SetListItemStatus(string folderName, string fileStatus)
+        private static void SetListItemStatus(string torrentName, string fileStatus)
         {
-            string url = SiteDefinition.GetDefaultUrl();
-            using (var site = new SPSite(url))
+            var list = _web.Lists[SiteDefinition.GetTorrentLib()];
+            var finishedTorrentItem = list.Items.Cast<SPListItem>().FirstOrDefault(item => (string)(item["TorrentName"]) == torrentName);
+            if (finishedTorrentItem == null) return;
+            finishedTorrentItem["FileStatus"] = fileStatus;
+            finishedTorrentItem.Update();
+        }
+
+        private static float CalculateFolderSize(string folder)
+        {
+            float folderSize = 0.0f;
+            try
             {
-                using (var web = site.OpenWeb())
+                //Checks if the path is valid or not
+                if (!Directory.Exists(folder))
+                    return folderSize;
+                try
                 {
-                    var list = web.Lists[SiteDefinition.GetTorrentLib()];
-                    var finishedTorrentItem = list.Items.Cast<SPListItem>().FirstOrDefault(item => (string) (item["TorrentName"]) == folderName);
-                    if (finishedTorrentItem == null) return;
-                    finishedTorrentItem["FileStatus"] = fileStatus;
-                    finishedTorrentItem.Update();
+                    foreach (string file in Directory.GetFiles(folder))
+                    {
+                        if (File.Exists(file))
+                        {
+                            var finfo = new FileInfo(file);
+                            folderSize += finfo.Length;
+                        }
+                    }
+
+                    folderSize += Directory.GetDirectories(folder).Sum(dir => CalculateFolderSize(dir));
+                }
+                catch (NotSupportedException e)
+                {
+                    Console.WriteLine("Unable to calculate folder size: {0}", e.Message);
                 }
             }
+            catch (UnauthorizedAccessException e)
+            {
+                Console.WriteLine("Unable to calculate folder size: {0}", e.Message);
+            }
+            return folderSize;
         }
     }
 
-    
+    internal class Torrent
+    {
+        private float _originalSize;
+
+        public Torrent(float originalSize)
+        {
+            _originalSize = originalSize;
+        }
+
+        public float OriginalSize
+        {
+            get
+            {
+                if (Math.Abs(_originalSize - default(float)) < 0.01f)
+                {
+                    return float.MaxValue;
+                }
+                return _originalSize;
+            }
+            set { _originalSize = value; }
+        }
+
+        public float CurrentSize { get; set; }
+    }
 }
