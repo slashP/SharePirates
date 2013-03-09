@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -25,7 +26,9 @@ namespace SharePirates.TorrentDownloader
         {
             SetupSignalR();
             SetupActivityMonitors();
-            string url = args.Length < 1 ? "http://win-5cdumdj4n76" : args[0];
+
+            InitializeWorkingtorrents();
+            string url = args.Length < 1 ? "http://fianbakken.com" : args[0];
             var site = new SPSite(url);
             _web = site.OpenWeb();
             var list = _web.Lists[SiteDefinition.GetTorrentLib()];
@@ -52,6 +55,19 @@ namespace SharePirates.TorrentDownloader
             }
         }
 
+        private static void InitializeWorkingtorrents()
+        {
+            var directory = new DirectoryInfo(TorrentDownloadPath);
+            foreach (var directoryInfo in directory.GetDirectories())
+            {
+                var torrentName = directoryInfo.Name;
+                if (!Torrents.ContainsKey(torrentName))
+                {
+                    Torrents.Add(torrentName,new Torrent(20000f));
+                }
+            }
+        }
+
         private static void SetupSignalR()
         {
             var hubConnection = new HubConnection("http://ciberpirates.apphb.com/");
@@ -74,10 +90,14 @@ namespace SharePirates.TorrentDownloader
         private static void FileChanged(FileSystemEventArgs eventArgs)
         {
             var folder = Path.GetDirectoryName(eventArgs.FullPath);
-            var torrentName = Path.GetFileName(Path.GetDirectoryName(eventArgs.FullPath));
+            var f = new FileInfo(eventArgs.FullPath);
+
+            var directory = f.Directory;
+            var torrentName = directory.Name; // Path.GetFileName(Path.GetDirectoryName(eventArgs.FullPath));
             // TODO: report progress
             var folderSize = CalculateFolderSize(folder);
             Torrent torrent;
+            
             if (Torrents.TryGetValue(torrentName, out torrent))
             {
                 torrent.CurrentSize = folderSize;
@@ -101,7 +121,15 @@ namespace SharePirates.TorrentDownloader
         {
             // Torrent is starting downloading
             var torrentName = Path.GetFileNameWithoutExtension(eventArgs.FullPath);
-            Torrents.Add(torrentName, new Torrent(20000F));
+            if (Torrents.ContainsKey(torrentName))
+            {
+    // ALLREADY THERe
+            }
+            else
+            {
+
+                Torrents.Add(torrentName, new Torrent(20000F));
+            }
             _torrentHub.Invoke("TorrentDownloading", torrentName);
             try
             {
@@ -115,7 +143,7 @@ namespace SharePirates.TorrentDownloader
         private static void SetListItemStatus(string torrentName, string fileStatus)
         {
             var list = _web.Lists[SiteDefinition.GetTorrentLib()];
-            var finishedTorrentItem = list.Items.Cast<SPListItem>().FirstOrDefault(item => (string)(item["TorrentName"]) == torrentName);
+            var finishedTorrentItem = list.Items.Cast<SPListItem>().FirstOrDefault(item => item.Title == torrentName);
             if (finishedTorrentItem == null) return;
             finishedTorrentItem["FileStatus"] = fileStatus;
             finishedTorrentItem.Update();

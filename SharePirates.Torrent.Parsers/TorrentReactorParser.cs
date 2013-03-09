@@ -30,7 +30,7 @@ namespace SharePirates.Torrent.Parsers
             var title = _document.DocumentNode.Descendants("title").First().InnerText;
             _values.Add("torrentTitle", title);
             var categoryNodes = _document.DocumentNode.Descendants("div").First(x => x.InnerHtml == "Kategori:").ParentNode.Descendants("a");
-            var categories = string.Join(",", categoryNodes.Select(x => x.InnerText));
+            var categories = string.Join(",", categoryNodes.Select(x => x.InnerText).ToArray());
             _values.Add("torrentCategories", categories);
             return _values;
         }

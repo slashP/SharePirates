@@ -12,9 +12,15 @@
 </asp:Content>
 
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-<h1>        Thank you! 
-  </h1>  
-    <p>Your torrent has now been added </p>
+<h1>        Thank you! </h1>  
+
+    <p>Your torrent has been sent to your nearest boss for approval.. </p>
+    
+    
+    <strong>Status: </strong>
+   
+    Waiting for approval 
+
 </asp:Content>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PlaceHolderPageTitle" runat="server">
