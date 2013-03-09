@@ -77,6 +77,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\SharePirates.MoviePage\arrow-left.png" />
+    <Content Include="Images\SharePirates.MoviePage\arrow-right.png" />
     <Content Include="Images\SharePirates.MoviePage\jolly-roger-1.jpg" />
     <Content Include="Images\SharePirates.MoviePage\pirate-cove-1.jpg" />
     <Content Include="Images\SharePirates.MoviePage\pirate-dexter.png" />
@@ -84,8 +86,11 @@
     <Content Include="Images\SharePirates.MoviePage\pirate-ships.jpeg" />
     <Content Include="Images\SharePirates.MoviePage\planke.png" />
     <Content Include="Layouts\SharePirates.MoviePage\jquery-1.9.1.min.js" />
+    <Content Include="Layouts\SharePirates.MoviePage\jquery.theatre.min.js" />
     <Content Include="Layouts\SharePirates.MoviePage\MoviePage.aspx" />
     <Content Include="Layouts\SharePirates.MoviePage\Pirate.css" />
+    <Content Include="Layouts\SharePirates.MoviePage\theatre-controls.png" />
+    <Content Include="Layouts\SharePirates.MoviePage\theatre.css" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />

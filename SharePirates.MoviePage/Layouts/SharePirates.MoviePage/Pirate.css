@@ -1,30 +1,52 @@
-﻿
-#suiteBar {
- height:100px;   
-}
+﻿ #globalNavBox {
+            display: none;
+        }
+
+           #suiteBar {
+                 height:100px;   
+            }
+
 	
-#suiteBarLeft, #suiteBarRight {
-     background: url('/sites/movies/SiteAssets/planke.png') center center;
-}
+            #suiteBarLeft, #suiteBarRight {
+                 background: url('../images/MoviePage/planke.png') center center;
+            }
+            #ctl00_onetidHeadbnnr2 {
+                display: none;
+            }
+            #s4-titlerow {
+                display: none
+            }
+           
 
- #s4-bodyContainer {
-     background: url('../images/MoviePage/jolly-roger-1.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover; 
-        width: 100%; 
- }
+             #s4-bodyContainer {
+                 background: url('../images/MoviePage/jolly-roger-1.jpg') no-repeat center center fixed;
+                    -webkit-background-size: cover;
+                    -moz-background-size: cover;
+                    -o-background-size: cover;
+                    background-size: cover; 
+                    width: 100%; 
+             }
 
- .moviePreview { 
-  text-align:center;
-  width:350px;
-  height:300px;              
-  float: left;
+             .moviePreview { 
+              text-align:center;
+              width:350px;
+              height:300px;              
+              float: left;
 
- }
+             }
+             .moviePreview h2 {
+                 color: black;
+             }
+             .movieTitle {
+                 margin-left: 15px;
+                 width: 320px;
+                 background-color: peru;
+             }
  
- .movieContainer{
-  overflow: auto;
-  width: 100%;
-}
+             .movieContainer{
+              overflow: auto;
+              width: 100%;
+            }
+             video {
+                 margin-top: -30px;
+             }

@@ -13,7 +13,6 @@ namespace SharePirates.MoviePage.Layouts.SharePirates.MoviePage
         {
 
             MovieList = SPContext.Current.Web.Lists["MediaFiles"];
-
         }
     }
 }

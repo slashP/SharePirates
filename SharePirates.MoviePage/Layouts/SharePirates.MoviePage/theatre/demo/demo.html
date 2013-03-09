@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="commonPage" lang="en-GB" xml:lang="en-GB">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Demo - Web&#xA0;Developers&#xAE; Elixon&#xA0;CMS/AJAX</title>
+
+	<!-- Include jQuery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+	<!-- Include Theatre files - I recommend extracting all the Theatre files into "theatre" folder for easier upgrades in the future -->
+    <link type="text/css" rel="stylesheet" href="../theatre.css"/>
+    <script type="text/javascript" src="../jquery.theatre.min.js"></script>
+
+	<!-- Some styling for this page -->
+    <link rel="stylesheet" href="demo.css"/>
+
+	<!-- This is how you initialize theatre -->
+	<script type="text/javascript">
+	  $(window).load(function() { // Run when everything is loaded (especially images)
+	     $('#myExample').theatre({ //Initialize theatre
+	        // For comlete list of possible settings visit http://www.webdevelopers.eu/shop/5/doc/index#wdx_Settings
+		    'effect': 'css3:stack 3d', // css3:stack effect and fall over to 3d effect for older browsers
+	        'selector': 'img', // for galleries we want to animage only images without the surrounding links
+	        'paging': '.paging' // generate paging using element with class 'paging' as the template 
+	     });
+	  });
+	</script>
+
+	<!-- Design for nicer paging -->
+	<style type="text/css">
+	  .paging {
+	    text-align: center;
+	  }
+	  .paging span {
+	    text-decoration: none;
+	    color: silver;
+	    cursor: pointer;
+	  }
+	  .paging span.active {
+	    font-size: 2em;
+	    color: black;
+	  }
+
+	  .paging2 span {
+	    font-size: 2em;
+	  }
+	</style>
+  </head>
+
+  <body>
+    <h1>Theatre - The Only Carousel You Will Ever Need</h1>
+
+    <form action="#" style="clear: both;">
+      <select id="effect" name="effect">
+        <optgroup label="CSS3">
+          <option value="css3:stack 3d" selected="selected">Stack</option>		  
+          <option value="css3:circle 3d">Circle</option>
+          <option value="css3:slide 3d">Slide</option>		  
+        </optgroup>
+        <optgroup label="Effects">
+          <option value="3d">3D</option>
+          <option value="horizontal">Horizontal</option>
+          <option value="vertical">Vertical</option>
+          <option value="fade">Fade</option>
+          <option value="show">Show</option>
+          <option value="slide">Slide</option>
+        </optgroup>
+        <optgroup label="Experimental">
+          <option value="orbit">Orbit 3D</option>
+        </optgroup>
+      </select>
+	  <!-- This script changes the effect based on SELECT box state - you don't need it for your page -->
+	  <script type="text/javascript">
+		$('#effect').on('change', function() {
+	       $('#myExample').theatre({ 
+		      'effect': $('#effect').val(),
+	          'selector': 'img',
+	          'controls': true,
+	          'paging': '.paging'
+	       });
+		});
+	  </script>
+    </form>
+    <br/>
+
+	<!-- optional paging -->
+	<div class="paging"><span>{#}</span></div>
+
+	<!-- gallery -->
+    <div id="myExample" style="width: 632px; margin: auto; visibility: hidden /* trick to hide loading images before Theatre kicks in */;">
+      <a href="1.jpg" target="_blank">
+        <img src="1.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="2.jpg" target="_blank">
+        <img src="2.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="3.jpg" target="_blank">
+        <img src="3.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="4.jpg" target="_blank">
+        <img src="4.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="5.jpg" target="_blank">
+        <img src="5.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="6.jpg" target="_blank">
+        <img src="6.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="7.jpg" target="_blank">
+        <img src="7.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="8.jpg" target="_blank">
+        <img src="8.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="9.jpg" target="_blank">
+        <img src="9.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+      <a href="10.jpg" target="_blank">
+        <img src="10.jpg" style="height: 236px; width: 320px;"/>
+      </a>
+    </div>
+
+	<!-- yet other optional pagging -->
+	<div class="paging paging2"><span>•</span></div>
+
+	<!-- custom controls -->
+	<div class="controls">
+	  <span onclick="$('#myExample').theatre('prev');">Prev</span>
+	  <span onclick="$('#myExample').theatre('play');">Play</span>	
+	  <span onclick="$('#myExample').theatre('stop');">Stop</span>	
+	  <span onclick="$('#myExample').theatre('next');">Next</span>
+	</div>
+
+  </body>
+</html>

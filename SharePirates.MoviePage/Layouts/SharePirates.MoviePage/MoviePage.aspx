@@ -8,86 +8,131 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MoviePage.aspx.cs" Inherits="SharePirates.MoviePage.Layouts.SharePirates.MoviePage.MoviePage" DynamicMasterPageFile="~masterurl/default.master" %>
 
 <asp:Content ID="PageHead" ContentPlaceHolderID="PlaceHolderAdditionalPageHead" runat="server">
-    <SharePoint:CSSRegistration name= "<%$SPUrl:Pirate.css%>" runat="server" After="corev4.css"/>
-    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-    <style>
-        #globalNavBox {
-            display: none;
-        }
+<link href="theatre.css" rel="stylesheet" type="text/css" />
+<link href="Pirate.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="jquery.theatre.min.js"></script>
+<style>
+    #s4-bodyContainer {
+        background: url('../images/MoviePage/jolly-roger-1.jpg') no-repeat center center fixed;
+    }
 
-           #suiteBar {
-                 height:100px;   
-            }
+     #contentRow {
+         margin-left: -200px;
+     }
 
+    #s4-bodyContainer {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover; 
+        width: 100%; 
+    }
+
+    #globalNavBox, #suiteBar, #titleAreaBox, #suiteLinksBox, #sideNavBox, #suiteLinksBox, #DeltaSuiteBarRight {
+        display: none;
+    }
 	
-            #suiteBarLeft, #suiteBarRight {
-                 background: url('../images/MoviePage/planke.png') center center;
-            }
-            #ctl00_onetidHeadbnnr2 {
-                display: none;
-            }
-            #s4-titlerow {
-                display: none
-            }
-           
+    #suiteBarLeft, #suiteBarRight {
+        background: url('../images/MoviePage/planke.png') center center;
+    }
 
-             #s4-bodyContainer {
-                 background: url('../images/MoviePage/jolly-roger-1.jpg') no-repeat center center fixed;
-                    -webkit-background-size: cover;
-                    -moz-background-size: cover;
-                    -o-background-size: cover;
-                    background-size: cover; 
-                    width: 100%; 
-             }
+    #s4-bodyContainer {
+        background: url('../images/MoviePage/jolly-roger-1.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover; 
+        width: 100%;
+        min-height: 100%;
+    }
 
-             .moviePreview { 
-              text-align:center;
-              width:350px;
-              height:300px;              
-              float: left;
+    .moviePreview { 
+        text-align:center;
+        float: left;
+    }
 
-             }
-             .moviePreview h2 {
-                 color: black;
-             }
-             .movieTitle {
-                 margin-left: 15px;
-                 width: 320px;
-                 background-color: peru;
-             }
+    .moviePreview h2 {
+        color: black;
+    }
+
+    .hiddenMovie {
+        display: none;
+    }
+    .movieTitle {
+        margin-bottom: 30px;
+        margin-left: 12px;
+        width: 300px;
+        background-color: peru;
+    }
  
-             .movieContainer{
-              overflow: auto;
-              width: 100%;
-            }
-             video {
-                 margin-top: -30px;
-             }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#ctl00_onetidHeadbnnr2").attr("src", "../images/MoviePage/pirate-dexter.png");
+    .movieContainer{
+        overflow: auto;
+        width: 100%;
+    }
+    video {
+        margin-top: -30px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#s4-titlerow").html("<a href='http://win-5cdumdj4n76/' title='Back to ship, matey!'><img src='../images/MoviePage/pirate-dexter.png' height='100'></a>");
+        $("#s4-titlerow").css("height", "200px");
+            
+
+        $("#prevMovie").on('click', function () {
+            alert("Prev movie clikced");
         });
-        
-    </script>
+        $("#nextMovie").on('click', function () {
+            alert("Next movie clikced");
+        });
+    });
+
+    $(window).load(function () {
+        $("#videoGallery").theatre({
+            /* other options here */
+            selector: ".moviePreview",
+            effect: "3d",
+            autoplay: false,
+            controls: "horizontal",
+            onAfterMove: function (idx, actor, theatre) {
+                var previews = $("#videoGallery").find(".moviePreview");
+                $.each(previews, function (index, value) {
+                    var smallVideo = $(value).find('video');
+                    var smallTitle = $(value).find('.movieTitle');
+                    $(value).css("width", "300");
+                    smallTitle.css("width", "300");
+                    smallTitle.css("margin-left", "12px");
+                    smallVideo.attr("width", "300");
+                });
+                var video = $(actor).find('video');
+                var title = $(actor).find('.movieTitle');
+                $(actor).css("width", "700px");
+                $(actor).css("left", "500px");
+                $(actor).css("top", "50px");
+                title.css("width", "700px");
+                title.css("margin-left", "0px");
+                video.attr("width", "700px");
+            }
+        });
+    });
+    
+</script>
 </asp:Content>
 
 <asp:Content ID="Main" ContentPlaceHolderID="PlaceHolderMain" runat="server">
-    <div class="movieContainer">
- <% foreach (SPListItem item in MovieList.Items)
-    {
-        if (item.Url.EndsWith(".mp4"))
-        { %>
-    <div class="moviePreview">
-        <div class="movieTitle"><h2><% = item.Name %></h2></div>
-        <video width="320" height="240" controls>
-            <source src="<%= SPContext.Current.Web.Url + "/" + item.Url %>" type="video/mp4">
-        Your browser does not support the video tag.
-        </video> 
+    <div class="movieContainer" id="videoGallery" style="visibility: hidden; text-align: center; width: 100%; height: 500px;">
+     <% foreach (SPListItem item in MovieList.Items){
+            if (item.Url.EndsWith(".mp4")){%>
+        <div class="moviePreview"> 
+            <div class="movieTitle"><h2><% = item.Name %></h2></div>
+            <video width="300" controls>
+                <source src="<%= SPContext.Current.Web.Url + "/" + item.Url %>" type="video/mp4">
+            Your browser does not support the video tag.
+            </video> 
+        </div>
+    <% } } %>
     </div>
-<% }
-    } %>
-</div>
 </asp:Content>
 
 <asp:Content ID="PageTitle" ContentPlaceHolderID="PlaceHolderPageTitle" runat="server">
