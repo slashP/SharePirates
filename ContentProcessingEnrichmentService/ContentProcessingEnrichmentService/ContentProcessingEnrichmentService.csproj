@@ -85,7 +85,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Users\sebngu\Documents\GitHub\SharePirates\SharePirates.Torrent.Parsers\SharePirates.Torrent.Parsers.csproj">
+    <ProjectReference Include="..\..\SharePirates.Torrent.Parsers\SharePirates.Torrent.Parsers.csproj">
       <Project>{2a7a17fa-fe3a-4afc-a049-a8d25c8d4467}</Project>
       <Name>SharePirates.Torrent.Parsers</Name>
     </ProjectReference>

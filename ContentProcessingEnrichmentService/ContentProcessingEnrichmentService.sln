@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentProcessingEnrichmentService", "ContentProcessingEnrichmentService\ContentProcessingEnrichmentService.csproj", "{AC904687-EEA6-4FB8-8628-115DC638040B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.Torrent.Parsers", "..\..\Users\sebngu\Documents\GitHub\SharePirates\SharePirates.Torrent.Parsers\SharePirates.Torrent.Parsers.csproj", "{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharePirates.Torrent.Parsers", "..\SharePirates.Torrent.Parsers\SharePirates.Torrent.Parsers.csproj", "{2A7A17FA-FE3A-4AFC-A049-A8D25C8D4467}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
