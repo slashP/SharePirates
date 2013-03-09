@@ -25,7 +25,7 @@ namespace SharePirates.Torrent.Parsers
             _values.Add("torrentUrl", torrentUrl);
             var divHtmlNodes = _document.DocumentNode.Descendants("div");
             var sizehtmlnode = divHtmlNodes.First(x => x.InnerHtml == "Størrelse:");
-            var size = sizehtmlnode.ParentNode.Descendants("div").Last().InnerText;
+            var size = sizehtmlnode.ParentNode.Descendants("div").Last().InnerText.Split(Convert.ToChar(" "))[0];
             _values.Add("torrentSize", size);
             var title = _document.DocumentNode.Descendants("title").First().InnerText;
             _values.Add("torrentTitle", title);
